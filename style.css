@@ -1,0 +1,904 @@
+/* =================================== */
+/* 1. RESET & PENGATURAN DASAR
+/* =================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #0b0b0f;
+  color: #ffffff;
+}
+
+/* =================================== */
+/* 2. HEADER (NAVIGASI)
+/* =================================== */
+header {
+  display: flex;
+  justify-content: space-between; /* Mendorong logo ke kiri, profil ke kanan */
+  align-items: center;
+  padding: 15px 40px; /* Padding disesuaikan */
+  background-color: #000000; /* Warna latar belakang header */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Sedikit bayangan */
+}
+
+.logo {
+  display: flex; /* PENTING: merapikan logo & teks */
+  align-items: center; /* PENTING: rata tengah vertikal */
+  gap: 8px; /* Jarak antara logo dan teks */
+  font-size: 28px;
+  font-weight: bold;
+  color: #e50914; 
+  min-width: 100px; 
+}
+.logo span {
+  color: #fff;
+}
+.logo .logo-icon {
+  height: 25px; /* Sesuaikan tinggi logo Anda */
+  width: auto;
+}
+
+nav {
+  display: block;
+  flex-grow: 1; /* Navigasi mengambil ruang sisa di tengah */
+  text-align: left; /* Rata tengah item navigasi */
+  margin: 0 50px
+}
+
+nav a {
+  color: #e2dfdf;
+  text-decoration: none;
+  margin: 0 10px; /* Jarak antar item navigasi */
+  font-size: 16px;
+  transition: color 0.3s;
+}
+nav a:hover {
+  color: #7497ff;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Jarak antara gambar profil dan panah */
+  position: relative; /* Penting untuk dropdown */
+  cursor: pointer; /* Menunjukkan bisa diklik/hover */
+  min-width: 100px; /* Pastikan ada ruang di kanan untuk profil */
+  justify-content: flex-end; /* Rata kanan di dalam area profilnya */
+}
+
+.profile img {
+  width: 35px; /* Ukuran gambar profil */
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid #ffffff00; /* Sedikit border */
+}
+
+.profile .fa-chevron-down {
+  color: #526fff;
+  font-size: 14px;
+  transition: transform 0.3s ease; /* Untuk animasi panah berputar */
+}
+
+/* Dropdown untuk Login/Register */
+.dropdown {
+  display: none; /* Sembunyikan dropdown secara default */
+  position: absolute;
+  top: calc(100% + 10px); /* Di bawah elemen profile dengan sedikit jarak */
+  right: 0;
+  background-color: #000000;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  min-width: 120px;
+  padding: 8px 0;
+  z-index: 100; /* Pastikan di atas elemen lain */
+}
+
+/* Style saat menu AKTIF (dikontrol oleh JavaScript) */
+.profile.active .dropdown {
+  display: block;
+}
+
+.profile.active .fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+/* GANTI ATURAN .dropdown a LAMA ANDA DENGAN SEMUA KODE INI */
+.dropdown a {
+  display: flex; /* BARU: Membuat ikon & teks sejajar */
+  align-items: center; /* BARU: Rata tengah vertikal */
+  gap: 12px; /* BARU: Jarak antara ikon dan teks */
+  padding: 10px 15px; /* Sesuaikan padding */
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  text-align: left;
+  white-space: nowrap; /* Mencegah teks turun baris */
+}
+
+/* Style untuk ikon di dalam dropdown */
+.dropdown a i {
+  width: 16px; /* Beri lebar tetap agar teks rata */
+  text-align: center;
+  color: #ffffff; /* Warna ikon sedikit redup */
+}
+
+.dropdown a:hover {
+  background-color: #47b2ff;
+  color: #ffffff;
+}
+
+/* Ubah warna ikon saat di-hover */
+.dropdown a:hover i {
+  color: #ffffff;
+}
+
+/* =================================== */
+/* 3. HERO (BANNER UTAMA)
+/* =================================== */
+.hero {
+  position: relative;
+  height: 60vh; /* Anda bisa sesuaikan tingginya, misal 70vh */
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 0 60px; /* Pindahkan padding dari content ke hero */
+}
+
+/* Ini adalah lapisan gradien gelap dari KIRI */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, 
+    rgba(11, 11, 15, 0.9) 20%,  /* Mulai gelap dari kiri */
+    rgba(11, 11, 15, 0.7) 40%, 
+    rgba(11, 11, 15, 0.1) 70%, /* Memudar ke kanan */
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* Di belakang gradien */
+  /* Hapus mask-image jika ada di sini */
+}
+
+.hero-content {
+  position: relative; /* Pastikan di atas gradien */
+  z-index: 2;
+  max-width: 45%; /* Sesuaikan lebar konten */
+}
+.hero-content h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+.hero-content p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+/* Styling baru untuk buttons container */
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Jarak antar tombol */
+}
+
+.buttons button {
+  padding: 10px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex; /* Untuk ikon */
+  align-items: center;
+  gap: 8px; /* Jarak antara ikon dan teks */
+  transition: background-color 0.3s;
+}
+
+/* Tombol Mulai (Biru) */
+.buttons .play {
+  background-color: #4a69ff; /* Warna biru cerah */
+  color: #fff;
+}
+.buttons .play:hover {
+  background-color: #3a59d9; /* Biru lebih gelap saat hover */
+}
+
+/* Tombol Info (Transparan) */
+.buttons .info {
+  background-color: rgba(109, 109, 110, 0.4);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.buttons .info:hover {
+  background-color: rgba(109, 109, 110, 0.7);
+}
+
+/* Tombol 18+ (Lingkaran) */
+.buttons .age-rating {
+  background-color: rgba(109, 109, 110, 0.4);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%; /* Membuat lingkaran */
+  width: 45px; /* Lebar dan tinggi sama */
+  height: 45px;
+  padding: 0; /* Hapus padding agar teks rata tengah */
+  justify-content: center; /* Rata tengah horizontal */
+  font-size: 14px;
+}
+.buttons .age-rating:hover {
+  background-color: rgba(109, 109, 110, 0.7);
+}
+
+/* Tombol Mute di kanan bawah */
+.mute-button {
+  position: absolute;
+  bottom: 30px;
+  right: 60px;
+  z-index: 2;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(109, 109, 110, 0.4);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.mute-button:hover {
+  background-color: rgba(109, 109, 110, 0.7);
+}
+
+/* =================================== */
+/* 4. MOVIE SECTION (STYLING DASAR)
+/* =================================== */
+.movie-section {
+  padding: 20px 0; /* Memberi jarak antar section */
+}
+
+.movie-section h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding-left: 60px; /* Sejajar dengan header */
+}
+
+.movie-carousel {
+  position: relative;
+}
+
+.movie-list {
+  display: flex;
+  overflow-x: auto; /* Memungkinkan scroll horizontal */
+  overflow-y: hidden;
+  gap: 15px; /* Jarak antar poster */
+  padding: 0 60px; /* Padding di awal dan akhir list */
+  scroll-behavior: smooth;
+  /* Menghilangkan scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.movie-list::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.movie-item {
+  position: relative; /* Penting untuk badge */
+  flex-shrink: 0; /* Mencegah poster menyusut */
+  width: 180px; /* Lebar poster standar (vertikal) */
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.movie-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.movie-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* =================================== */
+/* 5. STYLING BADGE (TOP 10 / EPISODE BARU)
+/* =================================== */
+.badge {
+  position: absolute;
+  top: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.badge.top-10 {
+  background-color: #e50914; /* Merah */
+  right: 10px; /* Posisi di kanan atas */
+}
+
+.badge.episode-baru {
+  background-color: #0073e6; /* Biru */
+  left: 10px; /* Posisi di kiri atas */
+}
+
+/* =================================== */
+/* 6. STYLING CAROUSEL ARROWS
+/* =================================== */
+.movie-carousel .prev,
+.movie-carousel .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 20px 10px;
+  z-index: 10;
+  opacity: 0; /* Sembunyi secara default */
+  transition: opacity 0.3s;
+}
+
+.movie-carousel:hover .prev,
+.movie-carousel:hover .next {
+  opacity: 1; /* Muncul saat carousel di-hover */
+}
+
+.movie-carousel .prev {
+  left: 0;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.movie-carousel .next {
+  right: 0;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+/* =================================== */
+/* 7. STYLING KHUSUS: CONTINUE WATCHING
+/* =================================== */
+.continue-watching .movie-item {
+  width: 280px; /* Lebar poster landscape */
+  background-color: #1a1a23; /* Background untuk info di bawah gambar */
+}
+
+.continue-watching .movie-item img {
+  height: 158px; /* Tinggi gambar (rasio 16:9) */
+  object-fit: cover;
+}
+
+.continue-watching .progress-bar {
+  height: 4px;
+  background-color: #404040;
+  width: 100%;
+}
+
+.continue-watching .progress {
+  height: 100%;
+  background-color: #e50914; /* Warna merah progress */
+}
+
+.continue-watching .item-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.continue-watching .title {
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.continue-watching .rating {
+  font-size: 12px;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.continue-watching .rating .fa-star {
+  color: #f5c518; /* Warna kuning bintang */
+}
+
+/* Menyesuaikan posisi badge untuk item landscape */
+.continue-watching .badge.episode-baru {
+  top: 10px;
+  left: auto;
+  right: 10px; /* Pindahkan ke kanan agar tidak tertimpa tombol */
+}
+
+/* =================================== */
+/* 8. STYLING KHUSUS: TOP 10 TRENDING
+/* =================================== */
+
+/* Kita kembalikan padding-nya ke normal */
+#trend-list {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Kita kembalikan movie-item ke normal */
+#trend-list .movie-item {
+  overflow: hidden; /* KEMBALIKAN ke hidden */
+  margin-left: 0; /* Hapus margin khusus */
+}
+
+/* Kita kembalikan gambar ke normal (INI PENTING) */
+#trend-list .movie-item img {
+  position: static; /* Hapus 'relative' */
+  z-index: auto;  /* Hapus 'z-index: 2' AGAR TIDAK MENUTUPI BADGE */
+  box-shadow: none; /* Hapus bayangan khusus */
+}
+
+/* KITA PAKSA BADGE KEMBALI KE STYLE YANG BENAR (MERAH, KECIL, DI ATAS) */
+#trend-list .badge.top-10 {
+  /* Paksa kembali ke style badge merah */
+  background-color: #e50914; /* Merah */
+  padding: 5px 10px;
+  
+  /* Paksa kembali ke ukuran font kecil */
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+
+  /* Paksa kembali ke posisi kanan atas */
+  position: absolute;
+  z-index: 5;  /* Pastikan di atas segalanya */
+  left: auto;  /* Hapus 'left: -70px' */
+  bottom: auto; /* Hapus 'bottom: -50px' */
+  top: 10px;
+  right: 10px;
+}
+
+/* Hapus aturan khusus untuk item pertama */
+#trend-list .movie-item:first-child .badge.top-10 {
+  left: auto;
+}
+
+/* =================================== */
+/* 9. FOOTER
+/* =================================== */
+footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 60px;
+  background-color: #14141c;
+  margin-top: 50px;
+  color: #aaa;
+  border-top: 1px solid #222; /* Garis pemisah tipis */
+}
+
+/* Kolom Kiri: Logo & Copyright */
+.footer-left {
+  flex-basis: 30%; /* Lebar kolom kiri */
+}
+
+.footer-logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 15px;
+  /* Jika pakai gambar:
+  img {
+    height: 35px;
+    width: auto;
+  }
+  */
+}
+
+.copyright {
+  font-size: 14px;
+  color: #888;
+}
+
+/* Kolom Kanan: Semua Link (Genre & Bantuan) */
+.footer-right {
+  flex-basis: 65%; /* Lebar kolom kanan */
+  display: flex;
+  justify-content: flex-start; /* Mulai dari kiri */
+  gap: 50px; /* Jarak antara kolom Genre dan Bantuan */
+}
+
+.footer-links {
+  flex-basis: auto;
+}
+
+.footer-links h4 {
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* INI KUNCINYA: Membuat daftar Genre menjadi 4 kolom */
+.genre-list {
+  column-count: 4; /* Otomatis bagi list jadi 4 kolom */
+  column-gap: 20px; /* Jarak antar kolom genre */
+}
+
+.footer-links li {
+  margin-bottom: 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.footer-links li:hover {
+  color: #fff;
+}
+/* Sembunyikan link mobile di desktop */
+.mobile-links {
+  display: none;
+}
+
+
+/* =================================== */
+/* 10. ATURAN RESPONSIVE (MOBILE)
+/* =================================== */
+@media (max-width: 768px) {
+  
+  /* --- Global & Padding --- */
+  .hero-content {
+    padding-left: 20px; /* Kurangi padding hero */
+    padding-right: 20px;
+  }
+  .movie-section h2 {
+    padding-left: 20px;
+    font-size: 20px; /* Perkecil font judul section */
+  }
+  .movie-list {
+    padding: 0 20px; /* Padding di dalam carousel */
+  }
+  
+  /* --- Header (MEMPERBAIKI TEKS AGAR TERLIHAT) --- */
+  header {
+    padding: 15px 20px;
+  }
+  /* Ini membuat link navigasi tetap ada tapi mengecil */
+  nav {
+    display: block; /* MEMASTIKAN NAV TERLIHAT */
+    flex-grow: 1;
+    text-align: left;
+  }
+  nav a {
+    margin: 0 6px; /* Perkecil jarak antar link */
+    font-size: 14px; /* Perkecil font link */
+  }
+  .logo,
+  .profile {
+    min-width: auto; /* Hapus lebar minimum */
+    flex-shrink: 0; /* Mencegah logo/profil terhimpit */
+  }
+  .logo {
+    font-size: 22px; /* Perkecil logo di HP */
+  }
+  .logo .logo-icon {
+    height: 20px; /* Perkecil ikon logo di HP */
+  }
+  .profile:hover .dropdown {
+     display: none; /* Nonaktifkan hover di HP (biasanya dikontrol klik) */
+  }
+
+  /* --- Hero Section (MEMPERBAIKI TEKS AGAR RAPIH) --- */
+  .hero {
+    height: auto; 
+    min-height: 50vh;
+    padding-top: 40px; /* Beri jarak dari header */
+    padding-bottom: 40px;
+    align-items: center; /* Konten rata kiri (sesuai gambar) */
+  }
+  /* Gradien kita ubah agar lebih kuat di kiri */
+  .hero::before {
+    background: linear-gradient(to right, 
+      rgba(11, 11, 15, 0.95) 30%,  
+      rgba(11, 11, 15, 0.7) 50%, 
+      transparent 100%
+    );
+  }
+  .hero-content {
+    max-width: 100%; /* Konten jadi lebar penuh */
+    text-align: left; /* Rata kiri */
+  }
+  .hero-content h1 {
+    font-size: 32px; /* Perkecil font judul */
+  }
+  .hero-content p {
+    font-size: 14px; /* Perkecil font deskripsi */
+    margin-bottom: 25px;
+    /* Batasi teks jadi 3 baris agar rapih (tidak turun berantakan) */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }
+  .mute-button {
+    display: none; /* Sembunyikan tombol mute di HP */
+  }
+
+  /* --- Movie Carousels --- */
+  .movie-carousel .prev,
+  .movie-carousel .next {
+    display: none; /* Sembunyikan panah di HP */
+  }
+  .movie-item {
+    width: 140px; /* Lebar poster (dari 180px) */
+    height: 210px; 
+  }
+  .continue-watching .movie-item {
+    width: 220px; /* Lebar poster (dari 280px) */
+  }
+  .continue-watching .movie-item img {
+    height: 124px; 
+  }
+
+  /* --- Footer (Layout Baru) --- */
+  footer {
+    flex-direction: column; /* Tumpuk Kiri dan Kanan */
+    align-items: flex-start; /* Rata kiri semua */
+    padding: 30px 20px;
+    gap: 30px; /* Jarak antara logo dan link */
+  }
+  .copyright {
+    font-size: 12px;
+  }
+
+  /* Sembunyikan link desktop di mobile */
+  .desktop-links {
+    display: none;
+  }
+
+  /* Tampilkan link mobile */
+  .mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+  .mobile-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between; /* Panah di kanan */
+    align-items: center;
+    padding: 10px 0;
+  }
+  .mobile-links a i {
+    font-size: 12px;
+    color: #ffffff;
+  }
+}
+/* =================================== */
+/* 11. HALAMAN AUTENTIKASI (DAFTAR/LOGIN)
+/* =================================== */
+
+/* Style utama untuk body halaman login/daftar */
+.auth-page {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1595753476228-5cf54f24f8e3?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Kotak form di tengah */
+.auth-page .auth-container {
+  width: 100%;
+  max-width: 420px; /* Ini membatasi lebar di desktop */
+  background-color: rgba(25, 25, 30, 0.95);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Link untuk logo */
+.auth-page .logo-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+/* Logo (CHILL) */
+.auth-page .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff;
+}
+.auth-page .logo .logo-icon {
+  height: 30px;
+}
+.auth-page .logo span {
+  color: #e50914; /* Merah CHILL */
+}
+
+/* Teks Judul & Subjudul */
+.auth-page h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.auth-page .subtitle {
+  font-size: 16px;
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+/* Grup Form (Label + Input) */
+.auth-page .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+  position: relative; /* Untuk ikon mata */
+}
+
+.auth-page .form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #ddd;
+}
+
+.auth-page .form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  padding-right: 45px; /* Beri ruang untuk ikon mata */
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.auth-page .form-group input::placeholder {
+  color: #888;
+}
+
+/* Ikon Mata */
+.auth-page .toggle-password {
+  position: absolute;
+  right: 15px;
+  bottom: 13px; /* Posisikan di dalam input */
+  color: #888;
+  cursor: pointer;
+}
+
+/* Link "Sudah punya akun?" */
+.auth-page .auth-links {
+  display: flex; /* <-- KUNCI UTAMA */
+  justify-content: space-between; /* <-- KUNCI UTAMA */
+  align-items: center;
+  margin-top: -10px;
+  margin-bottom: 25px;
+}
+
+.auth-page .auth-links .link {
+  font-size: 14px;
+  color: #aaa;
+  text-decoration: none;
+}
+
+.auth-page .auth-links .link strong {
+  color: #fff;
+  text-decoration: none;
+}
+.auth-page .auth-links .link:hover strong,
+.auth-page .auth-links .link:hover {
+  text-decoration: underline;
+  color: #fff; /* Pastikan link tetap putih saat di-hover */
+}
+
+/* Tombol (Style dasar) */
+.auth-page .btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Tombol "Daftar" */
+.auth-page .btn-primary {
+  background-color: #555; /* Abu-abu tua seperti di gambar */
+  color: #fff;
+  margin-bottom: 20px;
+}
+.auth-page .btn-primary:hover {
+  background-color: #666;
+}
+
+/* Garis Pemisah "Atau" */
+.auth-page .separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #888;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+.auth-page .separator::before,
+.auth-page .separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #444;
+}
+.auth-page .separator span {
+  padding: 0 10px;
+}
+
+/* Tombol "Daftar dengan Google" */
+.auth-page .btn-google {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.auth-page .btn-google:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.auth-page .btn-google img {
+    height: 20px;
+    width: 20px;
+  }
