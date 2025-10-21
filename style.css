@@ -577,7 +577,8 @@ footer {
 /* =================================== */
 /* 10. ATURAN RESPONSIVE (MOBILE)
 /* =================================== */
-@media (max-width: 768px) {
+@media (max-width: 768px) 
+{
   
   /* --- Global & Padding --- */
   .hero-content {
@@ -603,22 +604,37 @@ footer {
     text-align: left;
   }
   nav a {
-    margin: 0 6px; /* Perkecil jarak antar link */
-    font-size: 7px; /* Perkecil font link */
+    margin: 0 4px; /* Perkecil jarak antar link */
+    font-size: 10px; /* Perkecil font link */
+    display: inline-block; /* <-- TAMBAHKAN BARIS INI */
   }
+  
   .logo,
   .profile {
     min-width: auto; /* Hapus lebar minimum */
     flex-shrink: 0; /* Mencegah logo/profil terhimpit */
   }
   .logo {
-    font-size: 22px; /* Perkecil logo di HP */
+    font-size: 15px; /* Perkecil logo di HP */
   }
   .logo .logo-icon {
     height: 20px; /* Perkecil ikon logo di HP */
   }
   .profile:hover .dropdown {
      display: none; /* Nonaktifkan hover di HP (biasanya dikontrol klik) */
+  }
+/* ... (style hero-content, p, dll.) ... */
+
+  /* KODE ANDA HARUS ADA DI SINI */
+  .buttons button {
+    padding: 8px 18px; 
+    font-size: 10px;   
+    gap: 6px;          
+  }
+  .buttons .age-rating {
+    width: 30px;       
+    height: 30px;
+    font-size: 12px;   
   }
 
   /* --- Hero Section (MEMPERBAIKI TEKS AGAR RAPIH) --- */
@@ -654,7 +670,13 @@ footer {
     overflow: hidden;
   }
   .mute-button {
-    display: active; /* Sembunyikan tombol mute di HP */
+    display: active;
+    width: auto;
+    height: auto;
+    font-size: 10px;
+    align-items: center;
+     
+    /* Sembunyikan tombol mute di HP */
   }
 
   /* --- Movie Carousels --- */
@@ -711,6 +733,7 @@ footer {
     color: #ffffff;
   }
 }
+
 /* =================================== */
 /* 11. HALAMAN AUTENTIKASI (DAFTAR/LOGIN)
 /* =================================== */
@@ -901,5 +924,4 @@ footer {
 .auth-page .btn-google img {
     height: 20px;
     width: 20px;
-
   }
