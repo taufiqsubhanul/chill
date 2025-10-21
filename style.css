@@ -621,7 +621,7 @@ footer {
     height: 20px; /* Perkecil ikon logo di HP */
   }
   .profile:hover .dropdown {
-     display: none; /* Nonaktifkan hover di HP (biasanya dikontrol klik) */
+     display: active; /* Nonaktifkan hover di HP (biasanya dikontrol klik) */
   }
 /* ... (style hero-content, p, dll.) ... */
 
@@ -925,3 +925,4 @@ footer {
     height: 20px;
     width: 20px;
   }
+
